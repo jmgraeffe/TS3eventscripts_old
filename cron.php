@@ -30,14 +30,16 @@ include_once('./classes/database.class.php');
 include_once('./classes/socket.class.php');
 include_once('./classes/main.class.php');
 include_once('./classes/plugin.class.php');
+include_once('./classes/lang.class.php');
 include_once('./classes/ts3.class.php');
 
 /* init */
 EVdb::getInstance('mysqli', '127.0.0.1','root', '', 'eventscripts');
 EVsocket::getInstance('127.0.0.1', 10011);
 EVsocket::getInstance()->login('serveradmin', '');
-EVts3::ev_useserver(1);
-EVts3::ev_updatenick('BOT');
+EVts3::useserver(1);
+EVts3::updatenick('BOT');
+EVlang::init();
 EVplugins::init();
 /* main thread */
 while (true) {
@@ -45,7 +47,7 @@ while (true) {
     $ex = explode("\n",$buf);
     foreach($ex as $line) {
         $line = EVts3::unEscapeText($line);
-        //EVsocket::getInstance()->send('status');
+        EVmain::loop();
         EVplugins::loop($line);
         usleep(100);
     }
