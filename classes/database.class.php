@@ -24,6 +24,20 @@
   SOFTWARE.
  */
 
+/*
+ * EVdb
+ * --------------------------------
+ * This class supports plugins with database
+ * access. Should work the same way for different
+ * kind of sql databases like mysql, mssql and sqlite.
+ * 
+ * Note for developers: YOU HAVE to use this class for
+ * database access, otherwise you wouldn't be able to
+ * change the database type in your config. And please note:
+ * Your plugin need to create the tables on it's own.
+ * You shouldn't let the user create your needed tables.
+ */
+
 class EVdb {
 
     private static $type;
@@ -35,12 +49,31 @@ class EVdb {
         self::connect($host, $user, $pass, $db);
     }
 
+    /*
+     * create / get instance of database class
+     * --------------------------------
+     * [@type]    = sql type (e.G. mysqli, sqlite3)
+     * [@host]    = sql hostname
+     * [@user]    = sql username
+     * [@pass]    = sql password
+     * [@db]      = sql database
+     */
+
     public static function getInstance($type = 'mysqli', $host = '127.0.0.1', $user = 'root', $pass = '', $db = 'ts3eventscripts') {
         if (is_null(self::$instance)) {
             self::$instance = new self($type, $host, $user, $pass, $db);
         }
         return self::$instance;
     }
+
+    /*
+     * initialize connection to sql database
+     * --------------------------------
+     * [@host]    = sql hostname
+     * [@user]    = sql username
+     * [@pass]    = sql password
+     * [@db]      = sql database
+     */
 
     private static function connect($host, $user, $pass, $db) {
         switch (self::$type) {
@@ -54,6 +87,12 @@ class EVdb {
         }
     }
 
+    /*
+     * do sql query
+     * --------------------------------
+     * $query   = sql query
+     */
+
     public static function query($query) {
         switch (self::$type) {
             case 'mysqli':
@@ -64,17 +103,29 @@ class EVdb {
                 break;
         }
     }
-    
+
+    /*
+     * escape text for sql
+     * --------------------------------
+     * @text    = escaped text
+     */
+
     public static function escapeText($text) {
         switch (self::$type) {
             case 'mysqli':
-                return self::$socket->escape_string ($text);
+                return self::$socket->escape_string($text);
                 break;
             case 'sqlite3':
                 return self::$socket->escapeString($text);
                 break;
         }
     }
+
+    /*
+     * return number of rows
+     * --------------------------------
+     * @res     = sql ressource
+     */
 
     public static function numrows($res) {
         switch (self::$type) {
@@ -84,6 +135,12 @@ class EVdb {
         }
     }
 
+    /*
+     * fetch rows as assoc array
+     * --------------------------------
+     * @res     = sql ressource
+     */
+
     public static function fetch_assoc($res) {
         switch (self::$type) {
             case 'mysqli':
@@ -91,6 +148,12 @@ class EVdb {
                 break;
         }
     }
+
+    /*
+     * fetch rows as array
+     * --------------------------------
+     * @res     = sql ressource
+     */
 
     public static function fetch_array($res) {
         switch (self::$type) {
@@ -103,6 +166,12 @@ class EVdb {
         }
     }
 
+    /*
+     * fetch field
+     * --------------------------------
+     * @res     = sql ressource
+     */
+
     public static function fetch_field($res) {
         switch (self::$type) {
             case 'mysqli':
@@ -110,6 +179,12 @@ class EVdb {
                 break;
         }
     }
+
+    /*
+     * get last inserted ID
+     * --------------------------------
+     * 
+     */
 
     public static function lastID() {
         switch (self::$type) {
