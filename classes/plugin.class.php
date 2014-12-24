@@ -24,27 +24,59 @@
   SOFTWARE.
  */
 
+/*
+ * EVplugins
+ * --------------------------------
+ * This class loads all jobs from the
+ * jobs folder, initialises the plugins
+ * and runs them frequently
+ * 
+ * Notes for developers: If you create a plugin
+ * you have to create a public function called "loop"
+ * to get it working with EVplugins. And you should create
+ * a constructor to initialize your plugin. Without an job
+ * xml file your plugin will not get executed!
+ */
+
 class EVplugins {
 
+    // array of all plugins
     private static $plugins = array();
 
     public static function init() {
         self::load();
     }
 
+    /*
+     * load all plugins
+     * --------------------------------
+     * 
+     */
+
     private static function load() {
-        $files = scandir('./plugins/');
+        $files = scandir('./jobs/');
         foreach ($files as $file) {
             if ($file != '.' AND $file != '..') {
-                $ex = explode('.',$file);
-                if(isset($ex[0])) {
-                    include_once('./plugins/'.$file);
-                    EVmain::log('Plugin ' . $ex[0] . ' loaded');
-                    self::$plugins[] = new $ex[0]();
+                // load xml file
+                $xml = (array)simplexml_load_file('./jobs/' . $file);
+                // load and initialize plugin
+                if (isset($xml['plugin'])) {
+                    include_once('./plugins/' . $xml['plugin'] . '.php');
+                    EVmain::log('Job ' . $xml['plugin'] . ' loaded');
+                    $plugin = $xml['plugin'];
+                    self::$plugins[] = new $plugin((array)$xml['options']);
+                }else{
+                    EVmain::log('Error in xml file '.$file);
                 }
             }
         }
     }
+
+    /*
+     * loop through all plugins
+     * --------------------------------
+     * @msg     = array with optional ts3 events
+     */
 
     public static function loop($msg) {
         foreach (self::$plugins as $plugin) {
