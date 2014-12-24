@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  The MIT License (MIT)
+
+  Copyright (c) 2014-2015 Karl-Martin Minkner
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+-->
+
+
+<root>
+    <!-- name of plugin to execute -->
+    <plugin>kdr_gsquery</plugin>
+    <options>
+        <!-- options needed for this plugin -->
+        <type>bf3</type>   <!-- type of game (see docs / libraries / gameq) -->
+        <ip>176.57.184.20</ip>       <!-- ip of server -->
+        <port>47200</port>   <!-- query port of server -->
+        <channel_0>2933</channel_0>     <!-- channel for displaying -->
+        <msg_0>{gq_hostname}</msg_0>  <!-- message to display -->
+        <channel_1>2934</channel_1>     <!-- channel for displaying -->
+        <msg_1>{gq_numplayers}/{gq_maxplayers}, Map: {gq_mapname}, Country: {country}</msg_1>  <!-- message to display -->
+        <channel_2>2941</channel_2>     <!-- channel for displaying -->
+        <msg_2>{gametype}, Round {roundsplayed}/{roundstotal}</msg_2>  <!-- message to display -->
+        <interval>10</interval>   <!-- refresh interval -->
+    </options>
+</root>
