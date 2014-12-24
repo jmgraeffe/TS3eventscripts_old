@@ -164,4 +164,19 @@ class EVts3 {
         return EVsocket::send($tmp, true);
     }
 
+    /*
+     * edit specific channel
+     * --------------------------------
+     * @cid    = id of channel
+     * @data     = options to change
+     */
+    public static function channelEdit($cid, $data) {
+        $params = '';
+        foreach ($data as $key => $value) {
+            $params.= ' ' . $key . '=' . self::escapeText($value);
+        }
+        $tmp = 'channeledit cid=' . $cid . $params;
+        return EVsocket::send($tmp, true);
+    }
+
 }
