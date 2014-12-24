@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/G:/ts3_eventscripts/classes/socket.class.php</file>
-            <file>file:/G:/ts3_eventscripts/classes/database.class.php</file>
-            <file>file:/G:/ts3_eventscripts/classes/plugin.class.php</file>
-            <file>file:/G:/ts3_eventscripts/cron.php</file>
-            <file>file:/G:/ts3_eventscripts/classes/main.class.php</file>
-            <file>file:/G:/ts3_eventscripts/plugins/kdr_afkmove.php</file>
-            <file>file:/G:/ts3_eventscripts/classes/ts3.class.php</file>
-            <file>file:/G:/ts3_eventscripts/plugins_disabled/test.php</file>
+            <file>file:/G:/cloud/svn/TS3eventscripts/classes/plugin.class.php</file>
+            <file>file:/G:/cloud/svn/TS3eventscripts/plugins/kdr_afkmove.php</file>
+            <file>file:/G:/cloud/svn/TS3eventscripts/jobs/kdr_afkmove.xml</file>
+            <file>file:/G:/cloud/svn/TS3eventscripts/classes/lang.class.php</file>
+            <file>file:/G:/cloud/svn/TS3eventscripts/classes/ts3.class.php</file>
+            <file>file:/G:/cloud/svn/TS3eventscripts/cron.php</file>
+            <file>file:/G:/cloud/svn/TS3eventscripts/classes/main.class.php</file>
         </group>
     </open-files>
 </project-private>
