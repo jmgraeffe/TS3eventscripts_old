@@ -62,7 +62,7 @@ class EVplugins {
                 // load and initialize plugin
                 if (isset($xml['plugin'])) {
                     include_once('./plugins/' . $xml['plugin'] . '.php');
-                    EVmain::log('Job ' . $xml['plugin'] . ' loaded');
+                    EVmain::log('Job ' . $file . ' loaded');
                     $plugin = $xml['plugin'];
                     self::$plugins[] = new $plugin((array)$xml['options']);
                 }else{
