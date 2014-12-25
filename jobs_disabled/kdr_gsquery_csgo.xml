@@ -29,15 +29,11 @@
     <plugin>kdr_gsquery</plugin>
     <options>
         <!-- options needed for this plugin -->
-        <type>bf3</type>   <!-- type of game (see docs / libraries / gameq) -->
-        <ip>176.57.184.20</ip>       <!-- ip of server -->
-        <port>47200</port>   <!-- query port of server -->
-        <channel_0>2933</channel_0>     <!-- channel for displaying -->
+        <type>csgo</type>   <!-- type of game (see docs / libraries / gameq) -->
+        <ip>64.74.97.72</ip>       <!-- ip of server -->
+        <port>27017</port>   <!-- query port of server -->
+        <channel_0>2939</channel_0>     <!-- channel for displaying -->
         <msg_0>{gq_hostname}</msg_0>  <!-- message to display -->
-        <channel_1>2934</channel_1>     <!-- channel for displaying -->
-        <msg_1>{gq_numplayers}/{gq_maxplayers}, Map: {gq_mapname}, Country: {country}</msg_1>  <!-- message to display -->
-        <channel_2>2941</channel_2>     <!-- channel for displaying -->
-        <msg_2>{gametype}, Round {roundsplayed}/{roundstotal}</msg_2>  <!-- message to display -->
-        <interval>10</interval>   <!-- refresh interval -->
+        <interval>60</interval>   <!-- refresh interval -->
     </options>
 </root>

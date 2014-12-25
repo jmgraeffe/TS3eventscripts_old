@@ -34,9 +34,9 @@ include_once('./classes/lang.class.php');
 include_once('./classes/ts3.class.php');
 
 /* init */
-EVdb::getInstance('mysqli', '127.0.0.1','root', '', 'eventscripts');
+EVdb::getInstance('mysqli', '127.0.0.1','root', 'technik,01', 'eventscripts');
 EVsocket::getInstance('127.0.0.1', 10011);
-EVsocket::getInstance()->login('serveradmin', '');
+EVsocket::getInstance()->login('serveradmin', 'dXRVBu1Y');
 EVts3::useserver(1);
 EVts3::updatenick('BOT');
 EVlang::init();
@@ -49,7 +49,7 @@ while (true) {
         $line = EVts3::unEscapeText($line);
         EVmain::loop();
         EVplugins::loop($line);
-        usleep(100);
+        usleep(500);
     }
-    usleep(100);
+    usleep(500);
 }
