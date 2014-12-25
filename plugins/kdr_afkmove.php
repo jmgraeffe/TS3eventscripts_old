@@ -60,7 +60,7 @@ class kdr_afkmove {
         // register event and listen for joining / leaving people
         EVts3::regevent('server');
         // register global clientList
-        EVmain::setClientList($this->proof_interval);
+        EVmain::setClientList(1);
     }
 
     public function loop($array) {
@@ -112,8 +112,10 @@ class kdr_afkmove {
     private function moveBack($user) {
         // if the user was AFK and isn't any more
         if (isset($this->afklist[$user['clid']])) {
-            // move back to old channel
-            EVts3::clientMove($user['clid'], $this->afklist[$user['clid']]);
+            // move back to old channel if he is actually in the afk channel
+            if ($user['cid'] == $this->afk_room_id) {
+                EVts3::clientMove($user['clid'], $this->afklist[$user['clid']]);
+            }
             // remove from list
             unset($this->afklist[$user['clid']]);
         }
