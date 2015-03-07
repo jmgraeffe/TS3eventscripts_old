@@ -26,4 +26,5 @@
 
 $lang['en'] = array(
     'test' => 'Dies ist ein Testeintrag!',
+    'newbie_connected' => "Hallo {client_nickname}!\n\nWillkommen auf unserem Teamspeak-Server. Als Gast kannst du unseren Gast-Bereich benutzen oder dir einen temporären Channel erstellen. Trete dem Neulings-Raum bei um registriert zu werden. Das Admin-Team von Kandru wünscht dir viel Spaß!",
 );

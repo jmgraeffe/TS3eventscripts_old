@@ -1,6 +1,5 @@
-<?php
-
-/*
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
   The MIT License (MIT)
 
   Copyright (c) 2014-2015 Karl-Martin Minkner
@@ -22,9 +21,14 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
- */
+-->
 
-$lang['en'] = array(
-    'test' => 'This is a test entry!',
-    'newbie_connected' => "Hey {client_nickname}!\n\nWelcome on our Teamspeak Server. Without any user groups you're able to use our guest gaming area and may create temporary channels. If you wan't to get registered please join the newbie room.\n\nHave fun and play fair!",
-);
+
+<root>
+    <!-- name of plugin to execute -->
+    <plugin>kdr_newbie</plugin>
+    <options>
+        <guestgroupid>8</guestgroupid>
+        <afkroomid>2</afkroomid> <!-- channel ID of afk room -->
+    </options>
+</root>
