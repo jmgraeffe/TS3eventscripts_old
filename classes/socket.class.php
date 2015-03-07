@@ -39,7 +39,7 @@
 
 class EVsocket {
 
-    private static $socket_events;
+    private static $socket_blocked;
     private static $socket;
     private static $instance;
     private static $maxlength = -1;
@@ -72,15 +72,15 @@ class EVsocket {
     private static function connect($ip, $port) {
         $address = "tcp://" . $ip . ":" . $port;
         $timeout = 0.5;
-        self::$socket_events = @stream_socket_client($address, $errno, $errstr, $timeout);
+        self::$socket_blocked = @stream_socket_client($address, $errno, $errstr, $timeout);
         self::$socket = @stream_socket_client($address, $errno, $errstr, $timeout);
-        if (self::$socket === false || self::$socket_events === false) {
+        if (self::$socket === false || self::$socket_blocked === false) {
             EVmain::log('Could not connect to teamspeak3 server query', true);
         }
-        @stream_set_timeout(self::$socket_events, $timeout);
+        @stream_set_timeout(self::$socket_blocked, $timeout);
         @stream_set_timeout(self::$socket, $timeout);
-        @stream_set_blocking(self::$socket_events, 0);
-        @stream_set_blocking(self::$socket, 1);
+        @stream_set_blocking(self::$socket_blocked, 1);
+        @stream_set_blocking(self::$socket, 0);
         EVmain::log('connected to teamspeak3 server query');
     }
 
@@ -93,7 +93,7 @@ class EVsocket {
 
     public static function login($user, $pass) {
         self::send('login ' . $user . ' ' . $pass);
-        self::send_events('login ' . $user . ' ' . $pass);
+        self::send_blocking('login ' . $user . ' ' . $pass);
     }
 
     /*
@@ -102,8 +102,10 @@ class EVsocket {
      * @msg     = message
      */
 
-    public static function send_events($msg) {
-        stream_socket_sendto(self::$socket_events, $msg . "\n");
+    public static function send_blocking($msg) {
+        stream_socket_sendto(self::$socket_blocked, $msg . "\n");
+        EVmain::log($msg);
+        return trim(@stream_get_contents(self::$socket_blocked, self::$maxlength));
     }
 
     /*
@@ -113,18 +115,7 @@ class EVsocket {
      */
 
     public static function send($msg) {
-        stream_socket_sendto(self::$socket, $msg . "\n");
-        return trim(@stream_get_contents(self::$socket, self::$maxlength));
-    }
-
-    /*
-     * get answer from events socket
-     * --------------------------------
-     * 
-     */
-
-    public static function get_events() {
-        return trim(@stream_get_contents(self::$socket_events, self::$maxlength));
+        return stream_socket_sendto(self::$socket, $msg . "\n");
     }
 
     /*
@@ -145,7 +136,7 @@ class EVsocket {
 
     public static function close() {
         fclose(self::$socket);
-        fclose(self::$socket_events);
+        //fclose(self::$socket_events);
     }
 
 }
