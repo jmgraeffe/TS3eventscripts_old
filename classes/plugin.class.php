@@ -64,7 +64,8 @@ class EVplugins {
                     include_once('./plugins/' . $xml['plugin'] . '.php');
                     EVmain::log('Job ' . $file . ' loaded');
                     $plugin = $xml['plugin'];
-                    self::$plugins[] = new $plugin((array)$xml['options']);
+					// add name to give the plugins the possibility to recognize which object goes to which entry 
+                    self::$plugins[$plugin] = new $plugin((array)$xml['options']);
                 }else{
                     EVmain::log('Error in xml file '.$file);
                 }
