@@ -74,12 +74,12 @@ class EVplugins {
     }
 
 	/*
-	 * let plugins get the whole list of all plugins
+	 * let plugins get a plugin by name
 	 * --------------------------------
 	 * @name	= name of plugin (without .php)
 	 */
 	public static function getPlugin($name) {
-		if(in_array(self::$plugins)) {
+		if(in_array($name, self::$plugins)) {
 			return self::$plugins[$name];
 		}
 	}
@@ -100,7 +100,7 @@ class EVplugins {
      */
 
     public static function loop($msg) {
-        foreach (self::$plugins as $plugin) {
+        foreach (self::$plugins as $name => $plugin) {
             $plugin->loop(array('msg' => $msg));
         }
     }

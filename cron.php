@@ -26,6 +26,8 @@
 
 //error_reporting(0);
 
+include_once('./config.php');
+
 include_once('./classes/database.class.php');
 include_once('./classes/socket.class.php');
 include_once('./classes/main.class.php');
@@ -34,13 +36,21 @@ include_once('./classes/lang.class.php');
 include_once('./classes/ts3.class.php');
 
 /* init */
-EVdb::getInstance('mysqli', '127.0.0.1','root', 'technik,01', 'eventscripts');
-EVsocket::getInstance('127.0.0.1', 10011);
-EVsocket::getInstance()->login('serveradmin', 'OTk7K0ZJ');
-EVts3::useserver(1);
-EVts3::updatenick('Serverbot');
+EVdb::getInstance(	$config["sql"]["system"], 
+					$config["sql"]["host"],
+					$config["sql"]["user"],
+					$config["sql"]["pass"],
+					$config["sql"]["db"]		);
+EVsocket::getInstance(	$config["ts3"]["ip"],
+						$config["ts3"]["port"],
+						$config["ts3"]["timeout"]	);
+EVsocket::getInstance()->login(	$config["ts3"]["user"],
+								$config["ts3"]["pass"]	);
+EVts3::useserver($config["ts3"]["id"]);
+EVts3::updatenick($config["name"]);
 EVlang::init();
 EVplugins::init();
+
 /* main thread */
 while (true) {
     $buf = EVsocket::getInstance()->get();

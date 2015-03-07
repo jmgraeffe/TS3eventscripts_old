@@ -44,8 +44,8 @@ class EVsocket {
     private static $instance;
     private static $maxlength = -1;
 
-    public function __construct($ip, $port) {
-        self::connect($ip, $port);
+    public function __construct($ip, $port, $timeout) {
+        self::connect($ip, $port, $timeout);
     }
 
     /*
@@ -55,9 +55,9 @@ class EVsocket {
      * @port    = port of teamspeak server query
      */
 
-    public static function getInstance($ip = '127.0.0.1', $port = 10011) {
+    public static function getInstance($ip = '127.0.0.1', $port = 10011, $timeout = 0.5) {
         if (is_null(self::$instance)) {
-            self::$instance = new self($ip, $port);
+            self::$instance = new self($ip, $port, $timeout);
         }
         return self::$instance;
     }
@@ -69,9 +69,8 @@ class EVsocket {
      * @port    = port of teamspeak server query
      */
 
-    private static function connect($ip, $port) {
+    private static function connect($ip, $port, $timeout) {
         $address = "tcp://" . $ip . ":" . $port;
-        $timeout = 0.5;
         self::$socket_blocked = @stream_socket_client($address, $errno, $errstr, $timeout);
         self::$socket = @stream_socket_client($address, $errno, $errstr, $timeout);
         if (self::$socket === false || self::$socket_blocked === false) {
