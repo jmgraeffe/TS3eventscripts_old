@@ -84,7 +84,7 @@ class EVts3 {
         if (!empty($id)) {
             $tmp.= ' id=' . $id;
         }
-        EVsocket::send_events($tmp);
+        EVsocket::send($tmp);
     }
 
     /*
@@ -96,7 +96,7 @@ class EVts3 {
     public static function useserver($id) {
         $tmp = 'use sid=' . $id;
         EVsocket::send($tmp);
-        EVsocket::send_events($tmp);
+        EVsocket::send_blocking($tmp);
     }
 
     /*
@@ -108,14 +108,15 @@ class EVts3 {
     public static function updatenick($name) {
         $tmp = 'clientupdate client_nickname=' . self::escapeText($name);
         EVsocket::send($tmp);
-        EVsocket::send_events($tmp);
+        //$tmp = 'clientupdate client_nickname=' . self::escapeText($eventname);
+        //EVsocket::send_events($tmp);
     }
 
     /*
      * send a message to a specific target
      * --------------------------------
-     * @targetmode  = mode of message
-     * @target      = target
+     * @targetmode  = mode of message {1-3}
+     * @target      = target {serverID|channelID|clientID}
      * @msg         = message
      */
 
@@ -136,7 +137,7 @@ class EVts3 {
             $params = ' ' . $params;
         }
         $tmp = 'clientlist' . $params;
-        return EVsocket::send($tmp, true);
+        return EVsocket::send_blocking($tmp, true);
     }
 
     /*
@@ -149,7 +150,7 @@ class EVts3 {
 
     public static function clientMove($clid, $cid, $cpw = '') {
         $tmp = 'clientmove clid=' . $clid . ' cid=' . $cid . (!empty($cpw) ? ' cpw=' . self::escapeText($cpw) : '');
-        return EVsocket::send($tmp, true);
+        return EVsocket::send_blocking($tmp, true);
     }
 
     /*
@@ -161,7 +162,7 @@ class EVts3 {
 
     public static function clientPoke($clid, $msg) {
         $tmp = 'clientpoke clid=' . $clid . ' msg=' . self::escapeText($msg);
-        return EVsocket::send($tmp, true);
+        return EVsocket::send_blocking($tmp, true);
     }
 
     /*
@@ -176,7 +177,7 @@ class EVts3 {
             $params.= ' ' . $key . '=' . self::escapeText($value);
         }
         $tmp = 'channeledit cid=' . $cid . $params;
-        return EVsocket::send($tmp, true);
+        return EVsocket::send_blocking($tmp, true);
     }
 
 }
