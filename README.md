@@ -8,8 +8,9 @@
                                                                   | |            
                                                                   |_|
 ```
-What is it?
+<b>What is it?</b><br />
 This is a looped php script for ts3 server automatism.
 You can write plugins and register specific events to event loop to get some methods called when an event is called.
 
+<b>Coming soon...</b><br />
 More description and a demo is in work.
