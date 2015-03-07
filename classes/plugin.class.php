@@ -73,6 +73,26 @@ class EVplugins {
         }
     }
 
+	/*
+	 * let plugins get the whole list of all plugins
+	 * --------------------------------
+	 * @name	= name of plugin (without .php)
+	 */
+	public static function getPlugin($name) {
+		if(in_array(self::$plugins)) {
+			return self::$plugins[$name];
+		}
+	}
+	
+	/*
+	 * let plugins get the whole list of all plugins
+	 * --------------------------------
+	 * 
+	 */
+	// added this class because $plugins is private
+	public static function getPluginList() {
+		return $plugins;
+	}
     /*
      * loop through all plugins
      * --------------------------------
