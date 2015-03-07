@@ -60,14 +60,14 @@ class kdr_afkmove {
         // register event and listen for joining / leaving people
         EVts3::regevent('server');
         // register global clientList
-        EVmain::setClientList(1);
+        EVmain::setClientList(2);
     }
 
     public function loop($array) {
         // remove client from afklist if he disconnects
         if (!empty($array['msg'])) {
-            $array = EVmain::parse($array['msg']);
-            if (isset($array['type']) && $array['type'] == 'notifyclientleftview') {
+            $array = EVmain::parse($array['msg'])[0];
+            if (isset($array['ev_type']) && $array['ev_type'] == 'notifyclientleftview') {
                 unset($this->afklist[$array['clid']]);
             }
         }
@@ -88,12 +88,17 @@ class kdr_afkmove {
         //print_r($array);
         foreach ($array as $user) {
             // only switch real users and if client id exists
-            if (isset($user['client_type']) && $user['client_type'] == 0 && isset($user['clid'])) {
+            if (isset($user['client_type'])
+                    && $user['client_type'] == 0
+                    && isset($user['clid'])) {
                 // if headphones muted execute movafk otherwise moveback
                 if ($user['client_output_muted'] == 1) {
                     $this->moveAfk($user);
-                } else {
+                } elseif($user['cid'] == $this->afk_room_id) {
                     $this->moveBack($user);
+                }else{
+                    // remove from list
+                    unset($this->afklist[$user['clid']]);
                 }
             }
         }
