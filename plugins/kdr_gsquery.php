@@ -53,6 +53,7 @@ class kdr_gsquery {
     private $timer = 0;
     private $proof_interval = 10;
     private $gameq;
+    private $last_sent = '';
 
     public function __construct($options) {
         // set options
@@ -85,10 +86,14 @@ class kdr_gsquery {
             // query gameserver and display result in specific channel
             $results = $this->query();
             foreach($this->msgs as $chan => $msg) {
-                $channel = array(
-                    'channel_name' => substr($this->strreplace($results, $msg),0,40),
-                );
-                EVts3::channelEdit($chan, $channel);
+                $msg = substr($this->strreplace($results, $msg),0,40);
+                if($this->last_sent !== $msg) {
+                    $this->last_sent = $msg;
+                    $channel = array(
+                        'channel_name' => $msg,
+                    );
+                    EVts3::channelEdit($chan, $channel);
+                }
             }
             // set timer to now
             $this->timer = time();
