@@ -36,20 +36,20 @@ include_once('./classes/ts3.class.php');
 /* init */
 EVdb::getInstance('mysqli', '127.0.0.1','root', 'technik,01', 'eventscripts');
 EVsocket::getInstance('127.0.0.1', 10011);
-EVsocket::getInstance()->login('serveradmin', 'dXRVBu1Y');
+EVsocket::getInstance()->login('serveradmin', 'OTk7K0ZJ');
 EVts3::useserver(1);
-EVts3::updatenick('BOT');
+EVts3::updatenick('Serverbot');
 EVlang::init();
 EVplugins::init();
 /* main thread */
 while (true) {
-    $buf = EVsocket::getInstance()->get_events();
+    $buf = EVsocket::getInstance()->get();
     $ex = explode("\n",$buf);
     foreach($ex as $line) {
         $line = EVts3::unEscapeText($line);
-        EVmain::loop();
+        EVmain::loop($line);
         EVplugins::loop($line);
-        usleep(500);
+        usleep(100);
     }
-    usleep(500);
+    usleep(100);
 }
