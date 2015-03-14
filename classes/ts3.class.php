@@ -180,4 +180,18 @@ class EVts3 {
         return EVsocket::send_blocking($tmp, true);
     }
 
+	/*
+	 * create channel with given data template
+	 * @data	= array with given data ($array["setting"] = ...), see docs for more info
+	 */
+	public static function channelCreate($data) {
+		$properties = '';
+		
+		foreach($data as $key => $value) {
+			$properties .= ' '.$key.'='.$this->escapeText($value);
+		}
+		
+		$tmp = 'channelcreate ' . $properties;
+		return EVsocket::send_blocking($tmp, true);
+	}
 }
